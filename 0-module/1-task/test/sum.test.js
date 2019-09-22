@@ -1,4 +1,6 @@
 const sum = require('../sum');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 const expect = require('chai').expect;
 
 describe('0-module-1-task', () => {
