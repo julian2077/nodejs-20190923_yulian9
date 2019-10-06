@@ -1,29 +1,18 @@
-const stream = require('stream');
-const LimitExceededError = require('./LimitExceededError');
+const LimitSizeStream = require('./LimitSizeStream');
+const fs = require('fs');
 
-class LimitSizeStream extends stream.Transform {
-  constructor(options) {
-    super(options);
-    this._limit = options.limit;
-    this._size = 0;
-  }
+const limitedStream = new LimitSizeStream({limit: 8}); // 8 байт
+const outStream = fs.createWriteStream('out.txt');
 
-  _transform(chunk, encoding, callback) {
+limitedStream.pipe(outStream);
 
-        var str = chunk.toString();
-        var len = str.length;
+limitedStream.write('hello');   // 'hello' - это 5 байт, поэтому
+                                //  эта строчка целиком записана в файл
+setTimeout(() => {
+  limitedStream.write('world'); // ошибка LimitExceeded! в файле осталось только hello
+}, 10);
 
-        if ((this._size + len) > this._limit ) {
-            callback(new LimitExceededError); // throw
-        } else {
-            this._size += len;    // console.log(str);
-            this.push(chunk);
-            callback();
-        }
-    }
-}
-module.exports = LimitSizeStream;
-/* // -----------------------------------------------------------------
+/*
 В данной задаче вам необходимо реализовать класс `LimitSizeStream`,
 который будет подсчитывать количество переданной через него информации
 и бросать ошибку если ее объем превысит допустимое значение.
