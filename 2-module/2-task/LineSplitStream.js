@@ -19,10 +19,7 @@ class LineSplitStream extends stream.Transform {
       this.push(line);
     }
 
-    //     this.push(lastLine);
-    // } else {
     this.remainder = lastLine;
-    // }
     callback();
   }
 
