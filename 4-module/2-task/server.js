@@ -49,7 +49,7 @@ server.on('request', (req, res) => {
         }
         if (err.code === 'LIMIT_EXCEEDED') {
           res.statusCode = 413;
-          res.end('превышении лимит по размеру файла');
+          res.end('превышенин лимит по размеру файла');
         } else {
           res.statusCode = 500;
           res.end('internal server error');

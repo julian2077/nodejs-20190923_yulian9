@@ -5,6 +5,7 @@
         "linebreak-style": ["error", "windows"],
         "quotes": ["error", "double"],
         "semi": ["error", "always"],
+        "key-spacing": ["error", { "align": "value" }],
 
         // override default options for rules from base configurations
         "comma-dangle": ["error", "always"],
