@@ -4,10 +4,22 @@ const fs = require('fs');
 const LimitSizeStream = require('./LimitSizeStream');
 const url = require('url');
 
+const receiveFile = require('./receiveFile');
+
 const server = new http.Server();
 
 server.on('request', (req, res) => {
   const pathname = url.parse(req.url).pathname.slice(1);
+<<<<<<< HEAD
+=======
+
+  if (pathname.includes('/') || pathname.includes('..')) {
+    res.statusCode = 400;
+    res.end('Nested paths are not allowed');
+    return;
+  }
+
+>>>>>>> aba81191f447751e59f11afa58142bb12e4fadc7
   const filepath = path.join(__dirname, 'files', pathname);
 
   console.log(`filepath = ${filepath}`);
@@ -19,6 +31,7 @@ server.on('request', (req, res) => {
 
   switch (req.method) {
     case 'POST':
+<<<<<<< HEAD
       /*
       - Если в процессе загрузки файла на сервер произошел обрыв соединения —
       созданный файл с диска надо удалять. */
@@ -89,6 +102,15 @@ server.on('request', (req, res) => {
       // file.on('finish', () => console.log('EVENT: finish'));
       // file.on('close', () => console.log('EVENT: close'));
       // file.on('open', () => console.log('EVENT: open'));
+=======
+      if (!filepath) {
+        res.statusCode = 404;
+        res.end('File not found');
+        return;
+      }
+
+      receiveFile(filepath, req, res);
+>>>>>>> aba81191f447751e59f11afa58142bb12e4fadc7
 
       break;
 
