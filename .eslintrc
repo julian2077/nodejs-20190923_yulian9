@@ -14,6 +14,7 @@
 
         // disable rules from base configurations
         "no-console": "off",
+        "max-len": ["error", {"tabWidth": 4 }]
         "code": 120,
 
     "env": {

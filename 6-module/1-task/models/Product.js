@@ -23,7 +23,10 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId, // mongoose.Schema.Types.ObjectId,
     required: true,
   },
-  images: [String],
+  images: [String], // массив ссылок изображений !!! массив строк
+  // images: [{
+  //   type: String,
+  // }],
 });
 
 module.exports = connection.model('Product', productSchema);
