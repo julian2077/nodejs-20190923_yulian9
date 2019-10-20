@@ -3,7 +3,6 @@ const Router = require('koa-router');
 const {productsByQuery} = require('./controllers/products');
 
 const app = new Koa();
-app.use(require('koa-bodyparser')());
 
 app.use(async (ctx, next) => {
   try {
@@ -25,4 +24,5 @@ const router = new Router({prefix: '/api'});
 router.get('/products', productsByQuery);
 
 app.use(router.routes());
+
 module.exports = app;
